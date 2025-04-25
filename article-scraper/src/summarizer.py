@@ -2,7 +2,8 @@
 Article summarization module using various summarization techniques.
 """
 from typing import List, Optional, Tuple
-from gensim.summarization import summarize as gensim_summarize
+from nltk.corpus import stopwords
+from collections import Counter
 from loguru import logger
 from .processor import TextProcessor
 
@@ -51,12 +52,27 @@ class ArticleSummarizer:
             # Fallback to simple extractive summarization
             return self._fallback_summarize(cleaned_text, ratio)
 
+    def _calculate_word_freq(self, text: str) -> Counter:
+        """Calculate word frequencies in the text."""
+        # Split into words and convert to lowercase
+        words = text.lower().split()
+        # Remove stopwords and punctuation
+        stop_words = set(stopwords.words('english'))
+        words = [word for word in words if word.isalnum() and word not in stop_words]
+        return Counter(words)
+
+    def _score_sentence(self, sentence: str, word_freq: Counter) -> float:
+        """Score a sentence based on word frequencies."""
+        words = sentence.lower().split()
+        score = sum(word_freq[word] for word in words if word.isalnum())
+        return score / len(words) if words else 0
+
     def _gensim_summarize(self, 
                          text: str, 
                          ratio: float, 
                          word_count: Optional[int]) -> str:
         """
-        Summarize text using Gensim's implementation.
+        Summarize text using frequency-based extractive summarization.
         
         Args:
             text: Text to summarize
@@ -67,17 +83,44 @@ class ArticleSummarizer:
             str: Generated summary
         """
         try:
-            # If word count is specified, calculate appropriate ratio
-            if word_count:
-                total_words = len(text.split())
-                ratio = word_count / total_words
-                ratio = min(max(ratio, 0.1), 0.9)  # Keep ratio between 0.1 and 0.9
+            # Split text into sentences using processor
+            sentences = self.processor.split_into_sentences(text)
+            if not sentences:
+                return ""
 
-            summary = gensim_summarize(text, ratio=ratio)
+            # Calculate word frequencies
+            word_freq = self._calculate_word_freq(text)
+            
+            # Score sentences
+            scored_sentences = [
+                (sentence, self._score_sentence(sentence, word_freq))
+                for sentence in sentences
+            ]
+            
+            # Sort sentences by score
+            scored_sentences.sort(key=lambda x: x[1], reverse=True)
+            
+            # Determine number of sentences for summary
+            if word_count:
+                avg_words_per_sentence = len(text.split()) / len(sentences)
+                num_sentences = min(
+                    len(sentences),
+                    round(word_count / avg_words_per_sentence)
+                )
+            else:
+                num_sentences = max(1, round(len(sentences) * ratio))
+            
+            # Select top sentences while preserving order
+            selected_indices = sorted([
+                sentences.index(sentence)
+                for sentence, _ in scored_sentences[:num_sentences]
+            ])
+            
+            summary = ' '.join(sentences[i] for i in selected_indices)
             return summary if summary else self._fallback_summarize(text, ratio)
             
         except Exception as e:
-            logger.warning(f"Gensim summarization failed: {str(e)}")
+            logger.warning(f"Summarization failed: {str(e)}")
             return self._fallback_summarize(text, ratio)
 
     def _extractive_summarize(self, 
