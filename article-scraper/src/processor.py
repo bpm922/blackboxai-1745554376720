@@ -84,7 +84,7 @@ class TextProcessor:
 
     def split_into_sentences(self, text: str) -> List[str]:
         """
-        Split text into sentences using NLTK's sentence tokenizer.
+        Split text into sentences.
         
         Args:
             text: Text to split into sentences
@@ -92,12 +92,29 @@ class TextProcessor:
         Returns:
             List[str]: List of sentences
         """
-        try:
-            return nltk.sent_tokenize(text)
-        except Exception as e:
-            logger.error(f"Error splitting text into sentences: {str(e)}")
-            # Fallback to simple period-based splitting
-            return [s.strip() for s in text.split('.') if s.strip()]
+        # Simple sentence splitting based on common sentence endings
+        sentences = []
+        current = []
+        
+        for line in text.split('\n'):
+            line = line.strip()
+            if not line:
+                if current:
+                    sentences.append(' '.join(current))
+                    current = []
+                continue
+                
+            words = line.split()
+            for word in words:
+                current.append(word)
+                if word.endswith(('.', '!', '?')):
+                    sentences.append(' '.join(current))
+                    current = []
+                    
+        if current:
+            sentences.append(' '.join(current))
+            
+        return [s.strip() for s in sentences if s.strip()]
 
     def extract_keywords(self, text: str, num_keywords: int = 10) -> List[str]:
         """
