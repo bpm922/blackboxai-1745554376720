@@ -1,0 +1,90 @@
+2025-04-25 07:08:39.646 | INFO     | __main__:process_website:52 - Processing articles from: https://idrw.org
+2025-04-25 07:08:40.508 | INFO     | __main__:process_website:65 - Processing article 1/10: IAF and DRDO Explore Upgrades for Ageing Phalcon AWACS Amid Push for Indigenous Innovation
+2025-04-25 07:08:40.517 | INFO     | src.news_scraper:scrape_article:103 - Scraping article from: https://idrw.org/iaf-and-drdo-explore-upgrades-for-ageing-phalcon-awacs-amid-push-for-indigenous-innovation/
+2025-04-25 07:08:46.380 | SUCCESS  | src.news_scraper:scrape_article:129 - Successfully scraped article: IAF and DRDO Explore Upgrades for Ageing Phalcon AWACS Amid Push for Indigenous Innovation
+2025-04-25 07:08:46.381 | SUCCESS  | __main__:process_website:90 - Successfully processed article: IAF and DRDO Explore Upgrades for Ageing Phalcon AWACS Amid Push for Indigenous Innovation
+2025-04-25 07:08:46.381 | INFO     | __main__:process_website:65 - Processing article 2/10: HAL Prachand Set to Boost Firepower with Indigenous 80mm Unguided Rocket Upgrade
+2025-04-25 07:08:46.382 | INFO     | src.news_scraper:scrape_article:103 - Scraping article from: https://idrw.org/hal-prachand-set-to-boost-firepower-with-indigenous-80mm-unguided-rocket-upgrade/
+2025-04-25 07:08:50.813 | SUCCESS  | src.news_scraper:scrape_article:129 - Successfully scraped article: HAL Prachand Set to Boost Firepower with Indigenous 80mm Unguided Rocket Upgrade
+2025-04-25 07:08:50.814 | SUCCESS  | __main__:process_website:90 - Successfully processed article: HAL Prachand Set to Boost Firepower with Indigenous 80mm Unguided Rocket Upgrade
+2025-04-25 07:08:50.814 | INFO     | __main__:process_website:65 - Processing article 3/10: Saab’s Gripen-E offers Seamless Integration of Indian Missiles, 100% ToT
+2025-04-25 07:08:50.814 | INFO     | src.news_scraper:scrape_article:103 - Scraping article from: https://idrw.org/saabs-gripen-e-offers-seamless-integration-of-indian-missiles-100-tot/
+2025-04-25 07:08:54.507 | SUCCESS  | src.news_scraper:scrape_article:129 - Successfully scraped article: Saab’s Gripen-E offers Seamless Integration of Indian Missiles, 100% ToT
+2025-04-25 07:08:54.508 | SUCCESS  | __main__:process_website:90 - Successfully processed article: Saab’s Gripen-E offers Seamless Integration of Indian Missiles, 100% ToT
+2025-04-25 07:08:54.508 | INFO     | __main__:process_website:65 - Processing article 4/10: Since Balakot: IAF’s Arsenal of Long-Range Missiles Now Enables Strikes Deep Inside Pakistan Without Crossing the Border
+2025-04-25 07:08:54.509 | INFO     | src.news_scraper:scrape_article:103 - Scraping article from: https://idrw.org/since-balakot-iafs-arsenal-of-long-range-missiles-now-enables-strikes-deep-inside-pakistan-without-crossing-the-border/
+2025-04-25 07:08:58.106 | SUCCESS  | src.news_scraper:scrape_article:129 - Successfully scraped article: Since Balakot: IAF’s Arsenal of Long-Range Missiles Now Enables Strikes Deep Inside Pakistan Without Crossing the Border
+2025-04-25 07:08:58.106 | SUCCESS  | __main__:process_website:90 - Successfully processed article: Since Balakot: IAF’s Arsenal of Long-Range Missiles Now Enables Strikes Deep Inside Pakistan Without Crossing the Border
+2025-04-25 07:08:58.106 | INFO     | __main__:process_website:65 - Processing article 5/10: Securing India’s Air Superiority: Preemptively Neutralizing PAF’s Deep Strike Capabilities.
+2025-04-25 07:08:58.107 | INFO     | src.news_scraper:scrape_article:103 - Scraping article from: https://idrw.org/securing-indias-air-superiority-preemptively-neutralizing-pafs-deep-strike-capabilities/
+2025-04-25 07:09:03.152 | SUCCESS  | src.news_scraper:scrape_article:129 - Successfully scraped article: Securing India’s Air Superiority: Preemptively Neutralizing PAF’s Deep Strike Capabilities.
+2025-04-25 07:09:03.153 | SUCCESS  | __main__:process_website:90 - Successfully processed article: Securing India’s Air Superiority: Preemptively Neutralizing PAF’s Deep Strike Capabilities.
+2025-04-25 07:09:03.153 | INFO     | __main__:process_website:65 - Processing article 6/10: INS Vikrant Sails in the Arabian Sea: A Strategic Signal Amid India-Pakistan Tensions
+2025-04-25 07:09:03.153 | INFO     | src.news_scraper:scrape_article:103 - Scraping article from: https://idrw.org/ins-vikrant-sails-in-the-arabian-sea-a-strategic-signal-amid-india-pakistan-tensions/
+2025-04-25 07:09:07.640 | SUCCESS  | src.news_scraper:scrape_article:129 - Successfully scraped article: INS Vikrant Sails in the Arabian Sea: A Strategic Signal Amid India-Pakistan Tensions
+2025-04-25 07:09:07.641 | SUCCESS  | __main__:process_website:90 - Successfully processed article: INS Vikrant Sails in the Arabian Sea: A Strategic Signal Amid India-Pakistan Tensions
+2025-04-25 07:09:07.641 | INFO     | __main__:process_website:65 - Processing article 7/10: Pakistan Considering Withdrawal from Tashkent Agreement Post-Shimla Agreement
+2025-04-25 07:09:07.641 | INFO     | src.news_scraper:scrape_article:103 - Scraping article from: https://idrw.org/pakistan-considering-withdrawal-from-tashkent-agreement-post-shimla-agreement/
+2025-04-25 07:09:11.678 | SUCCESS  | src.news_scraper:scrape_article:129 - Successfully scraped article: Pakistan Considering Withdrawal from Tashkent Agreement Post-Shimla Agreement
+2025-04-25 07:09:11.679 | SUCCESS  | __main__:process_website:90 - Successfully processed article: Pakistan Considering Withdrawal from Tashkent Agreement Post-Shimla Agreement
+2025-04-25 07:09:11.679 | INFO     | __main__:process_website:65 - Processing article 8/10: Pakistan to conduct surface-to-surface missile test off Karachi coast
+2025-04-25 07:09:11.679 | INFO     | src.news_scraper:scrape_article:103 - Scraping article from: https://idrw.org/pakistan-to-conduct-surface-to-surface-missile-test-off-karachi-coast/
+2025-04-25 07:09:15.914 | SUCCESS  | src.news_scraper:scrape_article:129 - Successfully scraped article: Pakistan to conduct surface-to-surface missile test off Karachi coast
+2025-04-25 07:09:15.915 | SUCCESS  | __main__:process_website:90 - Successfully processed article: Pakistan to conduct surface-to-surface missile test off Karachi coast
+2025-04-25 07:09:15.915 | INFO     | __main__:process_website:65 - Processing article 9/10: With eyes on Pakistan, India speeds up launch of special spy satellite
+2025-04-25 07:09:15.915 | INFO     | src.news_scraper:scrape_article:103 - Scraping article from: https://idrw.org/with-eyes-on-pakistan-india-speeds-up-launch-of-special-spy-satellite/
+2025-04-25 07:09:20.741 | WARNING  | src.news_scraper:scrape_article:133 - Attempt 1 failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2025-04-25 07:09:26.556 | SUCCESS  | src.news_scraper:scrape_article:129 - Successfully scraped article: With eyes on Pakistan, India speeds up launch of special spy satellite
+2025-04-25 07:09:26.556 | SUCCESS  | __main__:process_website:90 - Successfully processed article: With eyes on Pakistan, India speeds up launch of special spy satellite
+2025-04-25 07:09:26.556 | INFO     | __main__:process_website:65 - Processing article 10/10: On India’s Indus Waters Treaty Suspension Move, Pak’s “Act Of War” Response
+2025-04-25 07:09:26.556 | INFO     | src.news_scraper:scrape_article:103 - Scraping article from: https://idrw.org/on-indias-indus-waters-treaty-suspension-move-paks-act-of-war-response/
+2025-04-25 07:09:30.765 | SUCCESS  | src.news_scraper:scrape_article:129 - Successfully scraped article: On India’s Indus Waters Treaty Suspension Move, Pak’s “Act Of War” Response
+2025-04-25 07:09:30.765 | SUCCESS  | __main__:process_website:90 - Successfully processed article: On India’s Indus Waters Treaty Suspension Move, Pak’s “Act Of War” Response
+2025-04-25 07:09:30.766 | INFO     | __main__:process_website:52 - Processing articles from: https://www.strategicstudyindia.com
+2025-04-25 07:09:33.904 | INFO     | __main__:process_website:65 - Processing article 1/10: How the U.K. Deal on Diego Garcia Could Reshape U.S. Military in the Indian Ocean
+2025-04-25 07:09:33.905 | INFO     | src.news_scraper:scrape_article:103 - Scraping article from: https://www.strategicstudyindia.com/2025/04/how-uk-deal-on-diego-garcia-could.html
+2025-04-25 07:09:41.685 | SUCCESS  | src.news_scraper:scrape_article:129 - Successfully scraped article: How the U.K. Deal on Diego Garcia Could Reshape U.S. Military in the Indian Ocean
+2025-04-25 07:09:41.686 | SUCCESS  | __main__:process_website:90 - Successfully processed article: How the U.K. Deal on Diego Garcia Could Reshape U.S. Military in the Indian Ocean
+2025-04-25 07:09:41.686 | INFO     | __main__:process_website:65 - Processing article 2/10: SE Asia keeps the peace 50 years after Vietnam War
+2025-04-25 07:09:41.686 | INFO     | src.news_scraper:scrape_article:103 - Scraping article from: https://www.strategicstudyindia.com/2025/04/se-asia-keeps-peace-50-years-after.html
+2025-04-25 07:09:47.793 | SUCCESS  | src.news_scraper:scrape_article:129 - Successfully scraped article: SE Asia keeps the peace 50 years after Vietnam War
+2025-04-25 07:09:47.794 | SUCCESS  | __main__:process_website:90 - Successfully processed article: SE Asia keeps the peace 50 years after Vietnam War
+2025-04-25 07:09:47.794 | INFO     | __main__:process_website:65 - Processing article 3/10: Shattered Hegemony: Rivalry Between US And China In New Era Of Politics Of Force – Analysis
+2025-04-25 07:09:47.795 | INFO     | src.news_scraper:scrape_article:103 - Scraping article from: https://www.strategicstudyindia.com/2025/04/shattered-hegemony-rivalry-between-us.html
+2025-04-25 07:09:54.030 | SUCCESS  | src.news_scraper:scrape_article:129 - Successfully scraped article: Shattered Hegemony: Rivalry Between US And China In New Era Of Politics Of Force – Analysis
+2025-04-25 07:09:54.032 | SUCCESS  | __main__:process_website:90 - Successfully processed article: Shattered Hegemony: Rivalry Between US And China In New Era Of Politics Of Force – Analysis
+2025-04-25 07:09:54.032 | INFO     | __main__:process_website:65 - Processing article 4/10: China’s deceitful, disastrous projects in Latin America and Africa
+2025-04-25 07:09:54.032 | INFO     | src.news_scraper:scrape_article:103 - Scraping article from: https://www.strategicstudyindia.com/2025/04/chinas-deceitful-disastrous-projects-in.html
+2025-04-25 07:10:00.931 | SUCCESS  | src.news_scraper:scrape_article:129 - Successfully scraped article: China’s deceitful, disastrous projects in Latin America and Africa
+2025-04-25 07:10:00.932 | SUCCESS  | __main__:process_website:90 - Successfully processed article: China’s deceitful, disastrous projects in Latin America and Africa
+2025-04-25 07:10:00.932 | INFO     | __main__:process_website:65 - Processing article 5/10: Moon, Mars — China leads to both - Opinion
+2025-04-25 07:10:00.933 | INFO     | src.news_scraper:scrape_article:103 - Scraping article from: https://www.strategicstudyindia.com/2025/04/moon-mars-china-leads-to-both-opinion.html
+2025-04-25 07:10:07.623 | SUCCESS  | src.news_scraper:scrape_article:129 - Successfully scraped article: Moon, Mars — China leads to both - Opinion
+2025-04-25 07:10:07.626 | SUCCESS  | __main__:process_website:90 - Successfully processed article: Moon, Mars — China leads to both - Opinion
+2025-04-25 07:10:07.626 | INFO     | __main__:process_website:65 - Processing article 6/10: Hegseth Said to Have Shared Attack Details in Second Signal Chat
+2025-04-25 07:10:07.626 | INFO     | src.news_scraper:scrape_article:103 - Scraping article from: https://www.strategicstudyindia.com/2025/04/hegseth-said-to-have-shared-attack_01183485983.html
+2025-04-25 07:10:14.057 | SUCCESS  | src.news_scraper:scrape_article:129 - Successfully scraped article: Hegseth Said to Have Shared Attack Details in Second Signal Chat
+2025-04-25 07:10:14.057 | SUCCESS  | __main__:process_website:90 - Successfully processed article: Hegseth Said to Have Shared Attack Details in Second Signal Chat
+2025-04-25 07:10:14.057 | INFO     | __main__:process_website:65 - Processing article 7/10: Command: The Politics of Military Operations from Korea to Ukraine
+2025-04-25 07:10:14.058 | INFO     | src.news_scraper:scrape_article:103 - Scraping article from: https://www.strategicstudyindia.com/2025/04/command-politics-of-military-operations.html
+2025-04-25 07:10:20.331 | SUCCESS  | src.news_scraper:scrape_article:129 - Successfully scraped article: Command: The Politics of Military Operations from Korea to Ukraine
+2025-04-25 07:10:20.332 | SUCCESS  | __main__:process_website:90 - Successfully processed article: Command: The Politics of Military Operations from Korea to Ukraine
+2025-04-25 07:10:20.332 | INFO     | __main__:process_website:65 - Processing article 8/10: This Is How Washington Loses the Pacific Islands
+2025-04-25 07:10:20.332 | INFO     | src.news_scraper:scrape_article:103 - Scraping article from: https://www.strategicstudyindia.com/2025/04/this-is-how-washington-loses-pacific.html
+2025-04-25 07:10:26.982 | SUCCESS  | src.news_scraper:scrape_article:129 - Successfully scraped article: This Is How Washington Loses the Pacific Islands
+2025-04-25 07:10:26.983 | SUCCESS  | __main__:process_website:90 - Successfully processed article: This Is How Washington Loses the Pacific Islands
+2025-04-25 07:10:26.983 | INFO     | __main__:process_website:65 - Processing article 9/10: Pentagon “Meltdown”: Will Donald Trump Dump Pete Hegseth?
+2025-04-25 07:10:26.983 | INFO     | src.news_scraper:scrape_article:103 - Scraping article from: https://www.strategicstudyindia.com/2025/04/pentagon-meltdown-will-donald-trump.html
+2025-04-25 07:10:34.727 | SUCCESS  | src.news_scraper:scrape_article:129 - Successfully scraped article: Pentagon “Meltdown”: Will Donald Trump Dump Pete Hegseth?
+2025-04-25 07:10:34.728 | SUCCESS  | __main__:process_website:90 - Successfully processed article: Pentagon “Meltdown”: Will Donald Trump Dump Pete Hegseth?
+2025-04-25 07:10:34.728 | INFO     | __main__:process_website:65 - Processing article 10/10: Is US Manufacturing Truly As Fragile As It Seems? – Analysis
+2025-04-25 07:10:34.729 | INFO     | src.news_scraper:scrape_article:103 - Scraping article from: https://www.strategicstudyindia.com/2025/04/is-us-manufacturing-truly-as-fragile-as.html
+2025-04-25 07:10:41.073 | SUCCESS  | src.news_scraper:scrape_article:129 - Successfully scraped article: Is US Manufacturing Truly As Fragile As It Seems? – Analysis
+2025-04-25 07:10:41.074 | SUCCESS  | __main__:process_website:90 - Successfully processed article: Is US Manufacturing Truly As Fragile As It Seems? – Analysis
+2025-04-25 07:10:41.075 | INFO     | __main__:process_website:52 - Processing articles from: https://www.e-ir.info
+2025-04-25 07:10:42.207 | INFO     | __main__:main:192 - 
+Analysis Complete
+2025-04-25 07:10:42.207 | INFO     | __main__:main:193 - Total articles processed: 20
+2025-04-25 07:10:42.207 | INFO     | __main__:main:194 - Results saved in: analysis
+2025-04-25 07:10:42.207 | INFO     | __main__:main:197 - 
+Most similar articles:
