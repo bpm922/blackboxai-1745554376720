@@ -1,0 +1,47 @@
+{
+  "total_articles": 10,
+  "avg_length": 549.5,
+  "avg_summary_length": 174.0,
+  "common_keywords": [
+    [
+      "indian",
+      5
+    ],
+    [
+      "indias",
+      4
+    ],
+    [
+      "pakistan",
+      4
+    ],
+    [
+      "could",
+      3
+    ],
+    [
+      "this",
+      3
+    ],
+    [
+      "pakistans",
+      3
+    ],
+    [
+      "iaf",
+      2
+    ],
+    [
+      "airborne",
+      2
+    ],
+    [
+      "or",
+      2
+    ],
+    [
+      "air",
+      2
+    ]
+  ]
+}
