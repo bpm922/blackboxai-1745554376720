@@ -1,5 +1,5 @@
 """
-Web scraping module for fetching articles from various sources.
+Web scraping module for defense news websites.
 """
 import time
 import random
@@ -9,7 +9,6 @@ import requests
 from bs4 import BeautifulSoup
 from loguru import logger
 import validators
-from urllib.parse import urlparse
 
 @dataclass
 class Article:
@@ -21,21 +20,14 @@ class Article:
     date: Optional[str] = None
     metadata: Dict = None
 
-class ArticleScraper:
-    """Main scraper class for fetching articles from websites."""
+class DefenseNewsScraper:
+    """Scraper for defense news websites."""
     
     def __init__(self, 
-                 min_delay: float = 1.0,
-                 max_delay: float = 3.0,
+                 min_delay: float = 3.0,
+                 max_delay: float = 5.0,
                  max_retries: int = 3):
-        """
-        Initialize the scraper with configuration.
-        
-        Args:
-            min_delay: Minimum delay between requests in seconds
-            max_delay: Maximum delay between requests in seconds
-            max_retries: Maximum number of retry attempts for failed requests
-        """
+        """Initialize the scraper with configuration."""
         self.min_delay = min_delay
         self.max_delay = max_delay
         self.max_retries = max_retries
@@ -45,45 +37,67 @@ class ArticleScraper:
         logger.add("scraper.log", rotation="500 MB")
 
     def _create_session(self) -> requests.Session:
-        """Create and configure requests session with rotating user agents."""
+        """Create and configure requests session."""
         session = requests.Session()
         session.headers.update({
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+            'Accept-Language': 'en-US,en;q=0.5',
         })
         return session
 
-    def _validate_url(self, url: str) -> bool:
-        """
-        Validate if the provided URL is valid.
-        
-        Args:
-            url: URL to validate
-            
-        Returns:
-            bool: True if URL is valid, False otherwise
-        """
-        return bool(validators.url(url))
-
     def _random_delay(self):
-        """Implement random delay between requests to avoid rate limiting."""
+        """Implement random delay between requests."""
         delay = random.uniform(self.min_delay, self.max_delay)
         time.sleep(delay)
 
-    def scrape(self, url: str) -> Article:
-        """
-        Scrape article content from the given URL.
-        
-        Args:
-            url: URL of the article to scrape
+    def get_recent_articles(self, website: str, num_articles: int = 10) -> List[Dict]:
+        """Get recent articles from a website."""
+        try:
+            # Get homepage content
+            response = self.session.get(website)
+            response.raise_for_status()
+            soup = BeautifulSoup(response.text, 'lxml')
             
-        Returns:
-            Article: Article object containing scraped content
+            articles = []
             
-        Raises:
-            ValueError: If URL is invalid
-            RequestException: If scraping fails after max retries
-        """
-        if not self._validate_url(url):
+            # Different selectors for different websites
+            if "idrw.org" in website:
+                for article in soup.select('article.post')[:num_articles]:
+                    title_elem = article.select_one('h2.entry-title a')
+                    if title_elem:
+                        articles.append({
+                            "title": title_elem.get_text().strip(),
+                            "url": title_elem.get("href")
+                        })
+                        
+            elif "strategicstudyindia.com" in website:
+                for article in soup.select('div.post')[:num_articles]:
+                    title_elem = article.select_one('h3.post-title a')
+                    if title_elem:
+                        articles.append({
+                            "title": title_elem.get_text().strip(),
+                            "url": title_elem.get("href")
+                        })
+                        
+            elif "e-ir.info" in website:
+                for article in soup.select('article.post')[:num_articles]:
+                    title_elem = article.select_one('h2.entry-title a')
+                    if title_elem:
+                        articles.append({
+                            "title": title_elem.get_text().strip(),
+                            "url": title_elem.get("href")
+                        })
+            
+            return articles
+            
+        except Exception as e:
+            logger.error(f"Error getting articles from {website}: {str(e)}")
+            return []
+
+    def scrape_article(self, url: str) -> Article:
+        """Scrape article content from the given URL."""
+        if not validators.url(url):
             raise ValueError(f"Invalid URL: {url}")
 
         logger.info(f"Scraping article from: {url}")
@@ -91,12 +105,12 @@ class ArticleScraper:
         for attempt in range(self.max_retries):
             try:
                 self._random_delay()
-                response = self.session.get(url)
+                response = self.session.get(url, timeout=10)
                 response.raise_for_status()
                 
                 soup = BeautifulSoup(response.text, 'lxml')
                 
-                # Extract article content
+                # Extract content
                 title = self._extract_title(soup)
                 content = self._extract_content(soup)
                 author = self._extract_author(soup)
@@ -122,81 +136,110 @@ class ArticleScraper:
                     raise
 
     def _extract_title(self, soup: BeautifulSoup) -> str:
-        """Extract article title from the page."""
-        # Try different common title elements
-        title = soup.find('h1')
-        if not title:
-            title = soup.find('meta', property='og:title')
-        if not title:
-            title = soup.find('title')
-            
-        return title.get_text().strip() if title else "Untitled Article"
-
-    def _extract_content(self, soup: BeautifulSoup) -> str:
-        """Extract main article content from the page."""
-        # Try common article content containers
-        content_tags = [
-            soup.find('article'),
-            soup.find('div', class_=['article-content', 'post-content', 'entry-content']),
-            soup.find('div', {'role': 'main'}),
+        """Extract article title."""
+        title_selectors = [
+            ('h1', {'class': ['post-title', 'entry-title', 'article-title']}),
+            ('h1', None),
+            ('meta', {'property': 'og:title'}),
+            ('title', None)
         ]
         
-        for tag in content_tags:
-            if tag:
-                # Remove unwanted elements
-                for unwanted in tag.find_all(['script', 'style', 'nav', 'header', 'footer']):
-                    unwanted.decompose()
-                    
-                return tag.get_text(separator='\n').strip()
+        for tag, attrs in title_selectors:
+            element = soup.find(tag, attrs)
+            if element:
+                if tag == 'meta':
+                    return element.get('content', '').strip()
+                return element.get_text().strip()
+        
+        return "Untitled Article"
+
+    def _extract_content(self, soup: BeautifulSoup) -> str:
+        """Extract article content."""
+        # Remove unwanted elements
+        for unwanted in soup.find_all(['script', 'style', 'nav', 'header', 'footer', 'aside']):
+            unwanted.decompose()
+        
+        content_selectors = [
+            ('article', None),
+            ('div', {'class': ['post-content', 'entry-content', 'article-content']}),
+            ('div', {'class': ['post-body', 'entry-body', 'article-body']}),
+            ('div', {'itemprop': 'articleBody'}),
+            ('div', {'role': 'main'})
+        ]
+        
+        for tag, attrs in content_selectors:
+            content = soup.find(tag, attrs)
+            if content:
+                paragraphs = []
+                for p in content.find_all(['p', 'h2', 'h3', 'h4', 'blockquote']):
+                    text = p.get_text().strip()
+                    if text and not any(skip in text.lower() for skip in ['advertisement', 'subscribe', 'newsletter']):
+                        paragraphs.append(text)
                 
+                return '\n\n'.join(paragraphs)
+        
         return ""
 
     def _extract_author(self, soup: BeautifulSoup) -> Optional[str]:
-        """Extract article author if available."""
-        author = soup.find('meta', {'name': 'author'}) or \
-                soup.find('a', rel='author') or \
-                soup.find('span', class_='author')
-                
-        return author.get('content', author.get_text()).strip() if author else None
+        """Extract article author."""
+        author_selectors = [
+            ('meta', {'name': 'author'}),
+            ('meta', {'property': 'article:author'}),
+            ('a', {'class': ['author', 'writer', 'byline']}),
+            ('span', {'class': ['author', 'writer', 'byline']}),
+            ('p', {'class': ['author', 'writer', 'byline']})
+        ]
+        
+        for tag, attrs in author_selectors:
+            element = soup.find(tag, attrs)
+            if element:
+                if tag == 'meta':
+                    return element.get('content', '').strip()
+                return element.get_text().strip()
+        
+        return None
 
     def _extract_date(self, soup: BeautifulSoup) -> Optional[str]:
-        """Extract article publication date if available."""
-        date = soup.find('meta', {'property': 'article:published_time'}) or \
-               soup.find('time') or \
-               soup.find('span', class_=['date', 'published'])
-               
-        return date.get('content', date.get_text()).strip() if date else None
+        """Extract article date."""
+        date_selectors = [
+            ('meta', {'property': 'article:published_time'}),
+            ('meta', {'name': 'publication_date'}),
+            ('time', None),
+            ('span', {'class': ['date', 'published', 'post-date']}),
+            ('p', {'class': ['date', 'published', 'post-date']})
+        ]
+        
+        for tag, attrs in date_selectors:
+            element = soup.find(tag, attrs)
+            if element:
+                if tag == 'meta':
+                    return element.get('content', '').strip()
+                return element.get_text().strip()
+        
+        return None
 
     def _extract_metadata(self, soup: BeautifulSoup) -> Dict:
-        """Extract additional metadata from the page."""
+        """Extract article metadata."""
         metadata = {}
         
-        # Extract meta tags
-        meta_tags = soup.find_all('meta')
-        for tag in meta_tags:
-            name = tag.get('name', tag.get('property', ''))
-            content = tag.get('content', '')
-            if name and content:
-                metadata[name] = content
-                
-        return metadata
-
-    def bulk_scrape(self, urls: List[str]) -> List[Article]:
-        """
-        Scrape multiple articles from a list of URLs.
+        meta_properties = [
+            'og:type', 'og:site_name', 'article:section',
+            'article:tag', 'twitter:card', 'twitter:site'
+        ]
         
-        Args:
-            urls: List of URLs to scrape
-            
-        Returns:
-            List[Article]: List of scraped articles
-        """
-        articles = []
-        for url in urls:
-            try:
-                article = self.scrape(url)
-                articles.append(article)
-            except Exception as e:
-                logger.error(f"Failed to scrape {url}: {str(e)}")
-                continue
-        return articles
+        for prop in meta_properties:
+            element = soup.find('meta', {'property': prop})
+            if element:
+                metadata[prop] = element.get('content', '')
+        
+        # Extract article tags/categories
+        tags = []
+        for tag_element in soup.find_all(['a', 'span'], {'class': ['tag', 'category']}):
+            tag_text = tag_element.get_text().strip()
+            if tag_text:
+                tags.append(tag_text)
+        
+        if tags:
+            metadata['tags'] = tags
+        
+        return metadata
