@@ -1,28 +1,27 @@
-# Article Scraper and Summarizer
+# Defense News Analyzer
 
-A powerful tool for scraping, analyzing, and summarizing articles from news websites.
+A Python tool for scraping, analyzing, and comparing defense news articles from multiple sources.
 
 ## Features
 
-- Web scraping with automatic rate limiting and retry mechanisms
+- Automated scraping of recent articles from defense news websites
 - Text cleaning and preprocessing
-- Keyword extraction
-- Article summarization
-- Multiple storage formats (JSON, CSV, SQLite)
+- Article summarization using extractive techniques
+- Keyword extraction and analysis
+- Cross-article comparison and similarity analysis
 - Detailed statistics and reporting
 
 ## Project Structure
 
 ```
 article-scraper/
-├── requirements.txt      # Project dependencies
-├── README.md            # Documentation
-├── scraper_cli.py       # Command-line interface
+├── analyzer.py         # Main script
+├── requirements.txt    # Project dependencies
+├── README.md          # Documentation
 └── src/
-    ├── enhanced_scraper.py   # Web scraping functionality
-    ├── text_processor.py     # Text cleaning and analysis
-    ├── text_summarizer.py    # Article summarization
-    └── storage.py           # Data storage handling
+    ├── scraper.py     # Web scraping functionality
+    ├── processor.py   # Text cleaning and analysis
+    └── summarizer.py  # Article summarization
 ```
 
 ## Installation
@@ -40,100 +39,120 @@ article-scraper/
 
 ## Usage
 
-### Command Line Interface
-
-Process one or more URLs:
+Run the analyzer:
 ```bash
-python scraper_cli.py -u https://example.com/article1 https://example.com/article2
+python analyzer.py
 ```
 
-Process URLs from a file:
-```bash
-python scraper_cli.py -f urls.txt
-```
+This will:
+1. Scrape recent articles from configured defense news websites
+2. Process and analyze each article
+3. Generate summaries and extract keywords
+4. Perform cross-article comparison
+5. Save results in organized directories:
+   - `analysis/articles/` - Individual article data
+   - `analysis/analysis/` - Site-specific analysis
+   - `analysis/comparison/` - Cross-site comparison results
 
-Generate a JSON report:
-```bash
-python scraper_cli.py -u https://example.com/article --report report.json
-```
+## Supported Websites
 
-### Command Line Options
+Currently supports:
+- IDRW (Indian Defence Research Wing) - https://idrw.org
+- Strategic Study India - https://www.strategicstudyindia.com
+- E-International Relations - https://www.e-ir.info
 
-- `-u, --urls`: One or more URLs to process
-- `-f, --file`: File containing URLs (one per line)
-- `-o, --output-dir`: Output directory for data files (default: data)
-- `--report`: Generate JSON report with given filename
+## Output Structure
 
-### Python API
+### Article Data
+Each article is saved with:
+- Original URL and metadata
+- Cleaned content
+- Generated summary
+- Extracted keywords
+- Author and date information
 
-```python
-from src.enhanced_scraper import EnhancedScraper
-from src.text_processor import TextProcessor
-from src.text_summarizer import TextSummarizer
-from src.storage import DataStorage
+### Analysis Data
+Site-specific analysis includes:
+- Total articles processed
+- Average article length
+- Common keywords and themes
+- Summary statistics
 
-# Initialize components
-scraper = EnhancedScraper()
-processor = TextProcessor()
-summarizer = TextSummarizer()
-storage = DataStorage()
+### Comparison Data
+Cross-site comparison includes:
+- Similar article pairs with similarity scores
+- Common themes across sites
+- Content similarity metrics
 
-# Process an article
-article = scraper.scrape("https://example.com/article")
-cleaned_text = processor.clean(article.content)
-summary = summarizer.summarize(cleaned_text)
-storage.save_article(article.__dict__, summary)
-```
+## Features in Detail
 
-## Output
+### Web Scraping
+- Polite scraping with configurable delays
+- Automatic retry on failure
+- Smart content extraction
+- Metadata collection
 
-The tool provides:
-- Article content and metadata
-- Text statistics (word count, reading time, etc.)
-- Key topics/keywords
-- Article summary
-- Summary statistics (compression ratio, etc.)
+### Text Processing
+- HTML cleanup
+- Content normalization
+- Keyword extraction
+- Reading time estimation
 
-Results are stored in:
-- JSON files for detailed reports
-- SQLite database for persistent storage
-- CSV files for data analysis
-
-## Example Output
-
-```
-Title: Example Article
-Author: John Doe
-Date: 2024-04-25
-
-Article Statistics:
-- Words: 1500
-- Sentences: 75
-- Reading time: 8 minutes
-
-Key Topics:
-technology, innovation, research, development, future
-
-Summary:
-[Generated summary of the article...]
-
-Summary Statistics:
-- Compression ratio: 30.0%
-- Original length: 1500 words
-- Summary length: 450 words
-```
-
-## Storage
-
-Data is stored in the following locations:
-- `data/`: Default storage directory
-- `reports/`: JSON reports directory
-- `data/articles.db`: SQLite database
+### Analysis
+- Extractive summarization
+- Cross-article comparison
+- Theme identification
+- Similarity scoring
 
 ## Dependencies
 
-- requests: Web scraping
-- beautifulsoup4: HTML parsing
-- nltk: Text processing
-- loguru: Logging
-- pandas: Data handling
+- Web Scraping:
+  * requests
+  * beautifulsoup4
+  * lxml
+
+- Text Processing:
+  * nltk
+  * scikit-learn
+
+- Analysis:
+  * numpy
+  * pandas
+
+- Utilities:
+  * loguru
+  * validators
+
+## Notes
+
+- The tool implements polite scraping with configurable delays between requests
+- Articles are saved separately for easy access and reference
+- Comparison analysis helps identify related stories across different sources
+- All data is stored locally in organized directories
+
+## Example Output
+
+```json
+{
+  "similar_pairs": [
+    {
+      "article1": "Article Title 1",
+      "article2": "Article Title 2",
+      "similarity": 0.35
+    }
+  ],
+  "common_themes": [
+    ["defense", 10],
+    ["military", 8],
+    ["technology", 6]
+  ]
+}
+```
+
+## Contributing
+
+Feel free to submit issues, fork the repository, and create pull requests for any improvements.
+
+## License
+
+MIT License
