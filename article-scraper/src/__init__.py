@@ -1,1 +1,8 @@
-"""Defense News Analyzer package."""\nfrom .news_scraper import DefenseNewsScraper\nfrom .processor import TextProcessor\nfrom .summarizer import TextSummarizer\n\n__all__ = ["DefenseNewsScraper", "TextProcessor", "TextSummarizer"]
+"""
+Defense News Analyzer package.
+"""
+from .news_scraper import DefenseNewsScraper
+from .processor import TextProcessor
+from .summarizer import TextSummarizer
+
+__all__ = ["DefenseNewsScraper", "TextProcessor", "TextSummarizer"]
