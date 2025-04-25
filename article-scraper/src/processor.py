@@ -1,18 +1,18 @@
 """
-Text processing module for cleaning and preprocessing article content.
+Text processing module for cleaning and analyzing article content.
 """
 import re
-from typing import List, Optional
+from typing import List
+from collections import Counter
 import nltk
 from loguru import logger
 
 class TextProcessor:
-    """Handles text cleaning and preprocessing operations."""
+    """Handles text cleaning and analysis."""
     
     def __init__(self):
-        """Initialize the text processor and download required NLTK data."""
+        """Initialize the text processor."""
         try:
-            # Download required NLTK data
             nltk.download('punkt', quiet=True)
             nltk.download('stopwords', quiet=True)
             self.stopwords = set(nltk.corpus.stopwords.words('english'))
@@ -21,15 +21,7 @@ class TextProcessor:
             self.stopwords = set()
 
     def clean(self, text: str) -> str:
-        """
-        Clean and preprocess the input text.
-        
-        Args:
-            text: Raw text content to clean
-            
-        Returns:
-            str: Cleaned and preprocessed text
-        """
+        """Clean and normalize text content."""
         if not text:
             return ""
 
@@ -42,19 +34,18 @@ class TextProcessor:
         # Remove extra whitespace
         text = self._normalize_whitespace(text)
         
-        # Remove special characters
+        # Remove special characters while keeping punctuation
         text = self._remove_special_chars(text)
         
-        # Remove extra newlines while preserving paragraph structure
+        # Normalize paragraph breaks
         text = self._normalize_paragraphs(text)
         
         return text.strip()
 
     def _remove_html(self, text: str) -> str:
-        """Remove HTML tags from text."""
+        """Remove HTML tags and entities."""
         # Remove HTML tags
-        clean = re.compile('<.*?>')
-        text = re.sub(clean, '', text)
+        text = re.sub(r'<[^>]+>', '', text)
         
         # Remove HTML entities
         text = re.sub('&nbsp;', ' ', text)
@@ -66,115 +57,71 @@ class TextProcessor:
 
     def _normalize_whitespace(self, text: str) -> str:
         """Normalize whitespace in text."""
-        # Replace multiple spaces with single space
-        text = re.sub(r'\s+', ' ', text)
-        return text
+        return re.sub(r'\s+', ' ', text)
 
     def _remove_special_chars(self, text: str) -> str:
-        """Remove special characters while preserving meaningful punctuation."""
-        # Keep meaningful punctuation
-        text = re.sub(r'[^\w\s.,!?-]', '', text)
-        return text
+        """Remove special characters while keeping punctuation."""
+        return re.sub(r'[^\w\s.,!?-]', '', text)
 
     def _normalize_paragraphs(self, text: str) -> str:
-        """Normalize paragraph breaks in text."""
-        # Replace multiple newlines with double newline
-        text = re.sub(r'\n\s*\n', '\n\n', text)
-        return text
+        """Normalize paragraph breaks."""
+        return re.sub(r'\n\s*\n', '\n\n', text)
 
     def split_into_sentences(self, text: str) -> List[str]:
-        """
-        Split text into sentences.
+        """Split text into sentences."""
+        # Split on common sentence endings
+        text = text.replace('!', '.')
+        text = text.replace('?', '.')
         
-        Args:
-            text: Text to split into sentences
-            
-        Returns:
-            List[str]: List of sentences
-        """
-        # Simple sentence splitting based on common sentence endings
+        # Split and clean sentences
         sentences = []
-        current = []
+        for sentence in text.split('.'):
+            sentence = sentence.strip()
+            if sentence and len(sentence.split()) > 3:  # Ignore very short segments
+                sentences.append(sentence)
         
-        for line in text.split('\n'):
-            line = line.strip()
-            if not line:
-                if current:
-                    sentences.append(' '.join(current))
-                    current = []
-                continue
-                
-            words = line.split()
-            for word in words:
-                current.append(word)
-                if word.endswith(('.', '!', '?')):
-                    sentences.append(' '.join(current))
-                    current = []
-                    
-        if current:
-            sentences.append(' '.join(current))
-            
-        return [s.strip() for s in sentences if s.strip()]
+        return sentences
 
     def extract_keywords(self, text: str, num_keywords: int = 10) -> List[str]:
-        """
-        Extract key words from the text using frequency analysis.
+        """Extract key words from text using frequency analysis."""
+        # Split into words and convert to lowercase
+        words = text.lower().split()
         
-        Args:
-            text: Text to extract keywords from
-            num_keywords: Number of keywords to extract
-            
-        Returns:
-            List[str]: List of extracted keywords
-        """
-        # Tokenize text
-        words = nltk.word_tokenize(text.lower())
-        
-        # Remove stopwords and non-alphabetic tokens
+        # Remove stopwords and non-alphabetic words
         words = [word for word in words 
                 if word.isalpha() and word not in self.stopwords]
         
-        # Calculate word frequencies
-        freq_dist = nltk.FreqDist(words)
+        # Count word frequencies
+        word_freq = Counter(words)
         
         # Get most common words
-        keywords = [word for word, _ in freq_dist.most_common(num_keywords)]
-        
-        return keywords
-
-    def get_reading_time(self, text: str, wpm: int = 200) -> int:
-        """
-        Calculate estimated reading time in minutes.
-        
-        Args:
-            text: Text to calculate reading time for
-            wpm: Words per minute reading speed (default: 200)
-            
-        Returns:
-            int: Estimated reading time in minutes
-        """
-        words = len(text.split())
-        minutes = round(words / wpm)
-        return max(1, minutes)  # Return at least 1 minute
+        return [word for word, _ in word_freq.most_common(num_keywords)]
 
     def get_text_stats(self, text: str) -> dict:
-        """
-        Get various statistics about the text.
-        
-        Args:
-            text: Text to analyze
-            
-        Returns:
-            dict: Dictionary containing text statistics
-        """
+        """Get statistics about the text."""
         sentences = self.split_into_sentences(text)
-        words = nltk.word_tokenize(text)
+        words = text.split()
         
-        stats = {
+        # Calculate reading time (assuming 200 words per minute)
+        reading_time = max(1, round(len(words) / 200))
+        
+        return {
             'num_sentences': len(sentences),
             'num_words': len(words),
             'avg_sentence_length': len(words) / len(sentences) if sentences else 0,
-            'reading_time': self.get_reading_time(text),
+            'reading_time': reading_time
         }
+
+    def calculate_similarity(self, text1: str, text2: str) -> float:
+        """Calculate similarity between two texts using word overlap."""
+        # Get word sets (excluding stopwords)
+        words1 = {w.lower() for w in text1.split() 
+                 if w.isalpha() and w.lower() not in self.stopwords}
+        words2 = {w.lower() for w in text2.split() 
+                 if w.isalpha() and w.lower() not in self.stopwords}
         
-        return stats
+        # Calculate Jaccard similarity
+        intersection = len(words1 & words2)
+        union = len(words1 | words2)
+        
+        return intersection / union if union > 0 else 0.0
