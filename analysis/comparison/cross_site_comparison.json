@@ -1,0 +1,64 @@
+{
+  "similar_pairs": [
+    {
+      "article1": "Since Balakot: IAF\u2019s Arsenal of Long-Range Missiles Now Enables Strikes Deep Inside Pakistan Without Crossing the Border",
+      "article2": "Securing India\u2019s Air Superiority: Preemptively Neutralizing PAF\u2019s Deep Strike Capabilities.",
+      "similarity": 0.32153572405376163
+    },
+    {
+      "article1": "Pakistan to conduct surface-to-surface missile test off Karachi coast",
+      "article2": "On India\u2019s Indus Waters Treaty Suspension Move, Pak\u2019s \u201cAct Of War\u201d Response",
+      "similarity": 0.32636357712687075
+    }
+  ],
+  "common_themes": [
+    [
+      "indian",
+      5
+    ],
+    [
+      "indias",
+      4
+    ],
+    [
+      "pakistan",
+      4
+    ],
+    [
+      "could",
+      3
+    ],
+    [
+      "this",
+      3
+    ],
+    [
+      "pakistans",
+      3
+    ],
+    [
+      "iaf",
+      2
+    ],
+    [
+      "airborne",
+      2
+    ],
+    [
+      "or",
+      2
+    ],
+    [
+      "air",
+      2
+    ],
+    [
+      "pahalgam",
+      2
+    ],
+    [
+      "any",
+      2
+    ]
+  ]
+}
