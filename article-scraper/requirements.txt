@@ -5,11 +5,11 @@ lxml>=4.9.3
 
 # Text Processing
 nltk>=3.8.1
-python-dateutil>=2.8.2
+scikit-learn>=1.2.0
 
-# Data Handling
+# Data Analysis
+numpy>=1.24.0
 pandas>=2.0.3
-tqdm>=4.65.0
 
 # Error Handling and Logging
 loguru>=0.7.0
