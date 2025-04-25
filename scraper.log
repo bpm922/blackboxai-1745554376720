@@ -153,3 +153,9 @@
 2025-04-25 05:03:18.808 | INFO     | src.enhanced_scraper:scrape:62 - Scraping article from: https://www.strategicstudyindia.com/2025/04/shattered-hegemony-rivalry-between-us.html
 2025-04-25 05:03:26.725 | SUCCESS  | src.enhanced_scraper:scrape:88 - Successfully scraped article: Shattered Hegemony: Rivalry Between US And China In New Era Of Politics Of Force – Analysis
 2025-04-25 05:03:26.735 | INFO     | src.storage:save_article:79 - Article saved successfully: Shattered Hegemony: Rivalry Between US And China In New Era Of Politics Of Force – Analysis
+2025-04-25 05:22:01.056 | INFO     | src.enhanced_scraper:scrape:62 - Scraping article from: https://www.strategicstudyindia.com/2025/04/how-uk-deal-on-diego-garcia-could.html
+2025-04-25 05:22:08.494 | SUCCESS  | src.enhanced_scraper:scrape:88 - Successfully scraped article: How the U.K. Deal on Diego Garcia Could Reshape U.S. Military in the Indian Ocean
+2025-04-25 05:22:08.509 | INFO     | src.storage:save_article:79 - Article saved successfully: How the U.K. Deal on Diego Garcia Could Reshape U.S. Military in the Indian Ocean
+2025-04-25 05:23:20.883 | INFO     | src.enhanced_scraper:scrape:62 - Scraping article from: https://idrw.org/iaf-and-drdo-explore-upgrades-for-ageing-phalcon-awacs-amid-push-for-indigenous-innovation/
+2025-04-25 05:23:25.650 | SUCCESS  | src.enhanced_scraper:scrape:88 - Successfully scraped article: IAF and DRDO Explore Upgrades for Ageing Phalcon AWACS Amid Push for Indigenous Innovation
+2025-04-25 05:23:25.663 | INFO     | src.storage:save_article:79 - Article saved successfully: IAF and DRDO Explore Upgrades for Ageing Phalcon AWACS Amid Push for Indigenous Innovation
